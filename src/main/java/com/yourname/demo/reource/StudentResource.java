@@ -6,11 +6,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/students")
@@ -23,16 +19,14 @@ public class StudentResource {
     this.studentService = studentService;
   }
 
-  @RequestMapping(
-      method = RequestMethod.GET,
+  @GetMapping(
       produces = MediaType.APPLICATION_JSON_VALUE
   )
   public List<Student> getAllStudents() {
     return studentService.getAllStudents();
   }
 
-  @RequestMapping(
-      method = RequestMethod.GET,
+  @GetMapping(
       produces = MediaType.APPLICATION_JSON_VALUE,
       path = "{studentId}"
   )
@@ -40,16 +34,14 @@ public class StudentResource {
     return studentService.getStudentById(studentId);
   }
 
-  @RequestMapping(
-      method = RequestMethod.POST,
+  @PostMapping(
       consumes = MediaType.APPLICATION_JSON_VALUE
   )
   public void insertNewStudent(@RequestBody Student student) {
     studentService.persistNewStudent(UUID.randomUUID(), student);
   }
 
-  @RequestMapping(
-      method = RequestMethod.PUT,
+  @PutMapping(
       consumes = MediaType.APPLICATION_JSON_VALUE,
       path = "{studentId}"
   )
@@ -57,8 +49,7 @@ public class StudentResource {
     studentService.updateStudentById(studentId, student);
   }
 
-  @RequestMapping(
-      method = RequestMethod.DELETE,
+  @DeleteMapping(
       path = "{studentId}",
       produces = MediaType.APPLICATION_JSON_VALUE
   )
